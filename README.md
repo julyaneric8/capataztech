@@ -56,4 +56,4 @@ O projeto conta com uma API REST para futuras integrações com aplicativos móv
    * **Senha:** *(em branco)*
 
 ---
-*Desenvolvido como projeto de avaliação (Seminário TecWeb) focado em Inovação e Regras de Negócio.* 🐂✨
+*Desenvolvido como projeto de avaliação (Seminário Tecnologia Web) focado em Inovação e Regras de Negócio.* 🐂✨
