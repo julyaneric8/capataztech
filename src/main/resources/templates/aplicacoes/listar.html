@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplicações</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/estilo.css">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1b5e20;">
+    <div class="container">
+        <a class="navbar-brand" href="/">🐂 CapatazTech</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="/animais">Animais</a>
+            <a class="nav-link" href="/vacinas">Vacinas</a>
+            <a class="nav-link active" href="/aplicacoes">Aplicações</a>
+            <a class="nav-link" href="/vendas">Vendas</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>💉 Histórico de Vacinação</h2>
+        <a href="/aplicacoes/novo" class="btn btn-primary">+ Nova Aplicação</a>
+    </div>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead class="table-dark">
+                <tr>
+                    <th>Animal</th><th>Vacina</th><th>Data Aplicação</th><th>Próxima Dose</th><th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="aplicacao : ${aplicacoes}">
+                    <td th:text="${aplicacao.animal.identificacao} + ' (' + ${aplicacao.animal.raca} + ')'"></td>
+                    <td th:text="${aplicacao.vacina.nome}"></td>
+                    <td th:text="${aplicacao.dataAplicacao}"></td>
+                    <td th:text="${aplicacao.proximaDose != null ? aplicacao.proximaDose : '-'}"></td>
+                    <td>
+                        <a th:href="@{/aplicacoes/excluir/{id}(id=${aplicacao.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Excluir?')">Excluir</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
