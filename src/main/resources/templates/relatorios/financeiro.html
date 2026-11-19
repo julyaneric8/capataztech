@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Relatório Financeiro - CapatazTech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #1b5e20;">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">CapatazTech</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Dashboard</a>
+                <a class="nav-link" href="/animais">Animais</a>
+                <a class="nav-link" href="/vacinas">Vacinas</a>
+                <a class="nav-link" href="/aplicacoes">Aplicações</a>
+                <a class="nav-link" href="/vendas">Vendas</a>
+                <a class="nav-link active" href="/relatorios">Relatórios</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 mb-5">
+    <h2 class="text-success fw-bold mb-4">Relatório Financeiro da Fazenda</h2>
+
+    <!-- Card de Faturamento Total -->
+    <div class="card shadow-sm mb-4 border-success" style="border-left: 5px solid #198754;">
+        <div class="card-body text-center">
+            <h4 class="text-muted">Faturamento Total com Vendas</h4>
+            <h1 class="display-3 fw-bold text-success" th:text="'R$ ' + ${faturamentoTotal}">R$ 0,00</h1>
+            <p class="text-muted mb-0">Soma automática de todas as vendas registradas no sistema.</p>
+        </div>
+    </div>
+
+    <!-- Tabela de Detalhes -->
+    <h4 class="mb-3">Histórico Detalhado</h4>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID Venda</th>
+                        <th>Animal</th>
+                        <th>Comprador</th>
+                        <th>Data</th>
+                        <th>Valor (R$)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="venda : ${vendas}">
+                        <td th:text="${venda.id}"></td>
+                        <td th:text="${venda.animal.identificacao}"></td>
+                        <td th:text="${venda.comprador}"></td>
+                        <td th:text="${venda.dataVenda}"></td>
+                        <td class="fw-bold text-success" th:text="'R$ ' + ${venda.valor}"></td>
+                    </tr>
+                    <tr th:if="${vendas.empty}">
+                        <td colspan="5" class="text-center text-muted py-4">Nenhuma venda registrada para gerar relatório.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

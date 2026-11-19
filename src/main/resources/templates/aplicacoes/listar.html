@@ -2,49 +2,71 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Aplicações</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aplicações - CapatazTech</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/estilo.css">
+    <link rel="stylesheet" href="/static/estilo.css">
 </head>
 <body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1b5e20;">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #1b5e20;">
     <div class="container">
-        <a class="navbar-brand" href="/">🐂 CapatazTech</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="/animais">Animais</a>
-            <a class="nav-link" href="/vacinas">Vacinas</a>
-            <a class="nav-link active" href="/aplicacoes">Aplicações</a>
-            <a class="nav-link" href="/vendas">Vendas</a>
+        <a class="navbar-brand fw-bold" href="/">CapatazTech</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Dashboard</a>
+                <a class="nav-link" href="/animais">Animais</a>
+                <a class="nav-link" href="/vacinas">Vacinas</a>
+                <a class="nav-link active" href="/aplicacoes">Aplicações</a>
+                <a class="nav-link" href="/vendas">Vendas</a>
+                <a class="nav-link" href="/relatorios">Relatórios</a>
+            </div>
         </div>
     </div>
 </nav>
+
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>💉 Histórico de Vacinação</h2>
-        <a href="/aplicacoes/novo" class="btn btn-primary">+ Nova Aplicação</a>
+        <h2 class="text-primary fw-bold">Histórico de Aplicações</h2>
+        <a href="/aplicacoes/novo" class="btn btn-primary shadow-sm">+ Nova Aplicação</a>
     </div>
+
     <div class="card shadow-sm">
         <div class="card-body p-0">
-            <table class="table table-striped mb-0">
-                <thead class="table-dark">
-                <tr>
-                    <th>Animal</th><th>Vacina</th><th>Data Aplicação</th><th>Próxima Dose</th><th>Ações</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="aplicacao : ${aplicacoes}">
-                    <td th:text="${aplicacao.animal.identificacao} + ' (' + ${aplicacao.animal.raca} + ')'"></td>
-                    <td th:text="${aplicacao.vacina.nome}"></td>
-                    <td th:text="${aplicacao.dataAplicacao}"></td>
-                    <td th:text="${aplicacao.proximaDose != null ? aplicacao.proximaDose : '-'}"></td>
-                    <td>
-                        <a th:href="@{/aplicacoes/excluir/{id}(id=${aplicacao.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Excluir?')">Excluir</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Animal</th>
+                        <th>Vacina</th>
+                        <th>Data Aplicação</th>
+                        <th>Próxima Dose</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="aplicacao : ${aplicacoes}">
+                        <td th:text="${aplicacao.id}"></td>
+                        <td th:text="${aplicacao.animal.identificacao}"></td>
+                        <td th:text="${aplicacao.vacina.nome}"></td>
+                        <td th:text="${aplicacao.dataAplicacao}"></td>
+                        <td th:text="${aplicacao.proximaDose != null ? aplicacao.proximaDose : '-'}"></td>
+                        <td class="text-center">
+                            <a th:href="@{/aplicacoes/excluir/{id}(id=${aplicacao.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${aplicacoes.empty}">
+                        <td colspan="6" class="text-center text-muted py-4">Nenhuma aplicação registrada.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
