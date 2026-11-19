@@ -43,8 +43,13 @@ public class VacinaController {
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable Long id) {
-        vacinaRepository.deleteById(id);
+    public String excluir(@PathVariable Long id, org.springframework.web.servlet.mvc.support.RedirectAttributes attributes) {
+        try {
+            vacinaRepository.deleteById(id);
+            attributes.addFlashAttribute("mensagemSucesso", "Vacina excluída com sucesso!");
+        } catch (Exception e) {
+            attributes.addFlashAttribute("mensagemErro", "Não é possível excluir esta vacina, pois ela possui aplicações vinculadas a animais.");
+        }
         return "redirect:/vacinas";
     }
 }

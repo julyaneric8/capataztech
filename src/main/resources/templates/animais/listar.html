@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/estilo.css">
 </head>
 <body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #1b5e20;">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-bold" href="/">CapatazTech</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -28,6 +28,11 @@
 </nav>
 
 <div class="container mt-4">
+    <!-- Alertas de Sucesso e Erro -->
+    <div th:if="${mensagemSucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${mensagemSucesso}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
     <div th:if="${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Atenção!</strong> <span th:text="${mensagemErro}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

@@ -45,8 +45,13 @@ public class AnimalController {
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable Long id) {
-        animalRepository.deleteById(id);
+    public String excluir(@PathVariable Long id, org.springframework.web.servlet.mvc.support.RedirectAttributes attributes) {
+        try {
+            animalRepository.deleteById(id);
+            attributes.addFlashAttribute("mensagemSucesso", "Animal excluído com sucesso!");
+        } catch (Exception e) {
+            attributes.addFlashAttribute("mensagemErro", "Não é possível excluir este animal, pois ele possui histórico de vacinas ou vendas vinculadas.");
+        }
         return "redirect:/animais";
     }
 }
